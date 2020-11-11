@@ -1,11 +1,22 @@
-import * as Types from '../../actions-types/firebase'
+import * as TYPES from '../../actions-types/firebase'
 
-const reducer = (state, action) => {
+const initialState = {
+    user: {},
+    firebaseInit: false
+}
+
+const firebase = (state = initialState, action) => {
     switch (action.type) {
-        case 'HEADER_COLOR_CHANGE':
+        case TYPES.FIREBASE_INITIALIZED:
             return {
                 ...state,
-                headerColor: action.color
+                firebaseInit: action.firebaseInit
+            }
+
+        case TYPES.FIREBASE_USER:
+            return {
+                ...state,
+                user: action.user
             }
 
         default:
@@ -13,4 +24,4 @@ const reducer = (state, action) => {
     }
 }
 
-export default reducer
+export default firebase

@@ -1,9 +1,10 @@
-import * as actionTypes from '../actionTypes/basket';
+import * as TYPES from '../../actions-types/firebase';
+import { store } from '../..'
 
-export const addProducts = products => dispatch => {
-    dispatch({ type: actionTypes.ADD_PRODUCTS, products })
+export const firebaseInitialized = firebaseInit => {
+    store.dispatch({ type: TYPES.FIREBASE_INITIALIZED, firebaseInit: firebaseInit })
 }
 
-export const deleteProduct = pId => dispatch => {
-    dispatch({ type: actionTypes.DELETE_PRODUCT, pId })
+export const firebaseUser = user => {
+    store.dispatch({ type: TYPES.FIREBASE_USER, user: user })
 }
