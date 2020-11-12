@@ -5,6 +5,7 @@ import PrivateRoute from './components/private-route'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
+import Profile from './pages/Profile'
 
 const App = () => {
     const firebaseInit = useSelector(state => state.firebase).firebaseInit;
@@ -15,7 +16,10 @@ const App = () => {
                 <Switch>
                     {
                         firebaseInit && (
-                            <PrivateRoute exact path="/" component={Home} />
+                            <>
+                                <PrivateRoute exact path="/" component={Home} />
+                                <PrivateRoute exact path="/profile" component={Profile} />
+                            </>
                         )
                     }
                     <Route exact path="/login" component={Login} />

@@ -9,7 +9,7 @@ const Register = () => {
 
     const onSend = () => {
         auth.createUserWithEmailAndPassword(username, password)
-            .then(user => console.log('userrrr: ', user))
+            .then(user => console.log('Kayıt başarılı!'))
             .catch(error => console.log('Register Fail :(', error))
     }
 
