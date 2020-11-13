@@ -1,0 +1,1 @@
+export const ALERT_TOGGLE = 'ALERT_TOGGLE'

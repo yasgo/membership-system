@@ -7,12 +7,15 @@ import Register from './pages/Register'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
 
+import Alert from './components/alert'
+
 const App = () => {
     const firebaseInit = useSelector(state => state.firebase).firebaseInit;
 
     return (
         (
             <Router>
+                <Alert />
                 {
                     firebaseInit && (
                         <Switch>
