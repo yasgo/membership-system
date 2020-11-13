@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import { auth } from '../firebase'
 import fb from 'firebase'
 
 const Profile = () => {
@@ -7,7 +8,7 @@ const Profile = () => {
 
     const user = useSelector(state => state.firebase).user
 
-    console.log('profil user: ', user)
+    console.log('profil user: ', user.photoURL)
 
     const onUploadImage = () => {
         let metadata = { contentType: 'image/jpeg' }
@@ -22,13 +23,29 @@ const Profile = () => {
 
     const getUploadImageUrl = (snapshot) => {
         snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            console.log('change profil image: ', downloadURL)
+            console.log('Resim yüklendi!')
+            changeUserPhoto(downloadURL)
+        });
+    }
+
+    const changeUserPhoto = (photoUrl) => {
+        auth.currentUser.updateProfile({
+            photoURL: photoUrl
+        }).then(function () {
+            console.log('Kullanıcının fotoğrafı değişti!')
+        }).catch(function (error) {
+            console.log('error: ', error)
         });
     }
 
     return (
         <div>
             <h3>Profil</h3>
+            {
+                user.photoURL && (
+                    <img src={user.photoURL} alt="Profil" />
+                )
+            }
             <input type="file" onChange={(e) => setImageFile(e.target.files[0])} />
             <button onClick={onUploadImage}>Resmi yükle</button>
         </div>

@@ -13,19 +13,17 @@ const App = () => {
     return (
         (
             <Router>
-                <Switch>
-                    {
-                        firebaseInit && (
-                            <>
-                                <PrivateRoute exact path="/" component={Home} />
-                                <PrivateRoute exact path="/profile" component={Profile} />
-                            </>
-                        )
-                    }
-                    <Route exact path="/login" component={Login} />
-                    <Route exact path="/register" component={Register} />
-                    {/* <Route component={ErrorPage} /> */}
-                </Switch>
+                {
+                    firebaseInit && (
+                        <Switch>
+                            <PrivateRoute exact path="/" component={Home} />
+                            <PrivateRoute exact path="/profile" component={Profile} />
+                            <Route exact path="/login" component={Login} />
+                            <Route exact path="/register" component={Register} />
+                            {/* <Route component={ErrorPage} /> */}
+                        </Switch>
+                    )
+                }
             </Router>
         )
     )
