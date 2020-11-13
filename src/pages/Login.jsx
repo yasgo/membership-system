@@ -1,16 +1,33 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { ALERT_TOGGLE } from '../redux/actions-types/alert'
 import { Link } from 'react-router-dom'
 import { auth } from '../firebase'
 
 const Login = () => {
 
+    const dispatch = useDispatch();
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
 
     const onSend = () => {
         auth.signInWithEmailAndPassword(username, password)
-            .then(user => console.log('userrrr: ', user))
-            .catch(error => console.log('Login Fail :(', error))
+            .then(user => (
+                dispatch({
+                    type: ALERT_TOGGLE,
+                    isShow: true,
+                    isSuccess: true,
+                    message: 'Başarıyla kayıt yaptınız!'
+                })
+            ))
+            .catch(error => (
+                dispatch({
+                    type: ALERT_TOGGLE,
+                    isShow: true,
+                    isSuccess: false,
+                    message: error.message
+                })
+            ))
     }
 
     return (

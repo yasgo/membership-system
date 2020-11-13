@@ -2,7 +2,7 @@ import * as TYPES from '../../actions-types/alert'
 
 const initialState = {
     message: '',
-    isShow: true,
+    isShow: false,
     isSuccess: false
 }
 

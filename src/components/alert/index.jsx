@@ -17,11 +17,14 @@ const Alert = () => {
     }
 
     return (
-        <SweetAlert
-            show={alertData.isShow}
-            text={alertData.message}
-            onConfirm={onConfirm}
-        />
+        alertData.isShow && (
+            <SweetAlert
+                show={alertData.isShow}
+                text={alertData.message}
+                icon='error'
+                onConfirm={onConfirm}
+            />
+        )
     )
 }
 
