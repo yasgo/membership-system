@@ -23,6 +23,7 @@ const Alert = () => {
                 show={alertData.isShow}
                 text={ALERT_LANGUAGE[alertData.message]}
                 type={alertData.isSuccess ? 'success' : 'error'}
+                confirmButtonText={'Tamam'}
                 onConfirm={onConfirm}
             />
         )

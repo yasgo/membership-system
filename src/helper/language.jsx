@@ -3,7 +3,9 @@ const ALERT_LANGUAGE = {
     'The password is invalid or the user does not have a password.': 'Parola geçersiz veya kullanıcının parolası yok.',
     'There is no user record corresponding to this identifier. The user may have been deleted.': 'Bu tanımlayıcıya karşılık gelen bir kullanıcı kaydı yok. Kullanıcı silinmiş olabilir.',
     'Password should be at least 6 characters': 'Şifre en az 6 karakter olmalıdır.',
-    'The email address is already in use by another account.': 'E-posta adresi zaten başka bir hesap tarafından kullanılıyor.'
+    'The email address is already in use by another account.': 'E-posta adresi zaten başka bir hesap tarafından kullanılıyor.',
+    'Başarıyla kayıt yaptınız!': 'Başarıyla kayıt yaptınız!',
+    'Başarıyla giriş yaptınız!': 'Başarıyla giriş yaptınız!'
 }
 
 export {
