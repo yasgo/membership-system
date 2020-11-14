@@ -1,8 +1,6 @@
-import fb from 'firebase/app';
+import fb from 'firebase'
 import 'firebase/auth'
-import 'firebase/database';
 import 'firebase/storage';
-
 import config from './config'
 import { firebaseAction } from '../redux/actions'
 
