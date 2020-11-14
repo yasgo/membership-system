@@ -1,4 +1,5 @@
 import SweetAlert from 'sweetalert2-react'
+import { ALERT_LANGUAGE } from '../../helper/language'
 import { useSelector, useDispatch } from 'react-redux'
 import { ALERT_TOGGLE } from '../../redux/actions-types/alert'
 
@@ -20,8 +21,8 @@ const Alert = () => {
         alertData.isShow && (
             <SweetAlert
                 show={alertData.isShow}
-                text={alertData.message}
-                icon='error'
+                text={ALERT_LANGUAGE[alertData.message]}
+                type={alertData.isSuccess ? 'success' : 'error'}
                 onConfirm={onConfirm}
             />
         )
