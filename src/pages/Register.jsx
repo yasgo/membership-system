@@ -1,26 +1,46 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { ALERT_TOGGLE, LOADING_TOGGLE } from '../redux/actions-types'
 import { auth } from '../firebase'
 
 const Register = () => {
 
-    let [username, setUsername] = useState('');
-    let [password, setPassword] = useState('');
+    const dispatch = useDispatch();
+    let [mail, setMail] = useState('yasinburakkalkan@gmail.com');
+    let [password, setPassword] = useState('yasin123');
 
     const onSend = () => {
-        auth.createUserWithEmailAndPassword(username, password)
-            .then(user => console.log('Kayıt başarılı!'))
-            .catch(error => console.log('Register Fail :(', error))
+        dispatch({ type: LOADING_TOGGLE, isShow: true })
+
+        auth.createUserWithEmailAndPassword(mail, password)
+            .then(user => {
+                dispatch({ type: LOADING_TOGGLE, isShow: false })
+
+                dispatch({
+                    type: ALERT_TOGGLE,
+                    isShow: true,
+                    isSuccess: true,
+                    message: 'Başarıyla kayıt yaptınız!'
+                })
+            })
+            .catch(error => {
+                dispatch({ type: LOADING_TOGGLE, isShow: false })
+
+                dispatch({
+                    type: ALERT_TOGGLE,
+                    isShow: true,
+                    isSuccess: false,
+                    message: error.message
+                })
+            })
     }
 
     return (
-        <div>
-            <h3>Üye Ol</h3>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <button onClick={onSend}>Send</button>
-            <Link to='/login'>Giriş Yap</Link>
-        </div>
+        <>
+            <input type="mail" placeholder="Mail Adresi" value={mail} onChange={(e) => setMail(e.target.value)} />
+            <input type="password" placeholder="Şifre" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <button onClick={onSend}>Üye Ol</button>
+        </>
     )
 }
 

@@ -8,6 +8,8 @@ import Home from './pages/Home'
 import Profile from './pages/Profile'
 
 import Alert from './components/alert'
+import Header from './components/header'
+import Loading from './components/loading'
 
 const App = () => {
     const firebaseInit = useSelector(state => state.firebase).firebaseInit;
@@ -15,7 +17,9 @@ const App = () => {
     return (
         (
             <Router>
+                <Header />
                 <Alert />
+                <Loading />
                 {
                     firebaseInit && (
                         <Switch>

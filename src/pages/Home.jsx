@@ -12,7 +12,7 @@ const Home = () => {
 
     return (
         <div>
-            <p>Hoşgeldiniz {user.email}</p>
+            <p>Hoşgeldiniz {user && user.email}</p>
             <button onClick={onSignOut}>Çıkış Yap</button>
         </div>
     )

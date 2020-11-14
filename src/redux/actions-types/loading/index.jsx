@@ -1,0 +1,1 @@
+export const LOADING_TOGGLE = 'LOADING_TOGGLE'

@@ -1,0 +1,47 @@
+@import "../../style/colors.scss";
+
+.multiple-content-container {
+    max-width: 300px;
+    min-width: 300px;
+
+    .multiple-content {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid $mercury;
+        border-top-width: 0px;
+        padding: 15px;
+
+        h3 {
+            margin-bottom: 15px;
+        }
+    }
+
+    ul {
+        display: flex;
+        border: 1px solid $mercury;
+        border-radius: 4px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        overflow: hidden;
+
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+
+            list-style-type: none;
+            height: 55px;
+            padding: 0 20px;
+            cursor: pointer;
+
+            font-size: 14px;
+            color: $black;
+
+            &.active {
+                background-color: $azureradiance;
+                color: $white;
+            }
+        }
+    }
+}
