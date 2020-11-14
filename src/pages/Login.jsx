@@ -6,8 +6,8 @@ import { auth } from '../firebase'
 const Login = () => {
 
     const dispatch = useDispatch();
-    let [mail, setMail] = useState('yasinburakkalkan@gmail.com');
-    let [password, setPassword] = useState('yasin123');
+    let [mail, setMail] = useState('');
+    let [password, setPassword] = useState('');
 
     const onSend = () => {
         dispatch({ type: LOADING_TOGGLE, isShow: true })
