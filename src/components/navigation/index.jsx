@@ -1,34 +1,14 @@
-import { Link } from 'react-router-dom'
 import { auth } from '../../firebase';
+import NavigationProfile from '../navigation-profile'
 
-const Navigation = () => {
-    const loginAfterNavigation = () => {
-        return (
-            <>
-                <Link to='/profile'>Profile</Link>
-            </>
-        )
-    }
-
-    const loginBeforeNavigation = () => {
-        return (
-            <>
-                {/* <Link to='/login'>Login</Link> */}
-            </>
-        )
-    }
-
-    return (
-        <nav>
-            {
-                auth.currentUser ? (
-                    loginAfterNavigation()
-                ) : (
-                        loginBeforeNavigation()
-                    )
-            }
-        </nav>
-    )
-}
+const Navigation = () => (
+    <nav>
+        {
+            auth.currentUser && (
+                <NavigationProfile />
+            )
+        }
+    </nav>
+)
 
 export default Navigation

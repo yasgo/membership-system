@@ -16,6 +16,11 @@ header {
         right: 0;
     }
 
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
     h1 {
         font-size: 10px;
         text-transform: uppercase;
@@ -23,7 +28,37 @@ header {
     }
 
     nav {
+        display: flex;
+        align-items: center;
+
         a {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        ul {
+            display: flex;
+            align-items: center;
+            margin-left: 30px;
+
+            li {
+                &:not(:last-child) {
+                    margin-right: 15px;
+                }
+
+                &.image {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background-position: center;
+                    background-size: cover;
+                }
+
+                &.button {
+                    cursor: pointer;
+                }
+            }
         }
     }
 }
