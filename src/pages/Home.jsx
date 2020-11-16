@@ -5,7 +5,7 @@ const Home = () => {
 
     return (
         <>
-            <p>Hoşgeldiniz {user && user.email}</p>
+            <p>Hoşgeldiniz {user && (user.displayName || user.email)}</p>
         </>
     )
 }
