@@ -39,7 +39,7 @@ const Profile = () => {
     }
 
     return (
-        <div>
+        <>
             <h3>Profil</h3>
             {
                 user.photoURL && (
@@ -48,7 +48,7 @@ const Profile = () => {
             }
             <input type="file" onChange={(e) => setImageFile(e.target.files[0])} />
             <button onClick={onUploadImage}>Resmi yükle</button>
-        </div>
+        </>
     )
 }
 

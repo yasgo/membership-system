@@ -1,7 +1,7 @@
-import Content from '../components/content'
+import { Row, Col, Container } from 'react-bootstrap'
+
 import Login from '../pages/Login'
 import Register from '../pages/Register'
-
 import MultipleContent from '../components/multiple-content'
 
 const Splash = () => {
@@ -18,9 +18,13 @@ const Splash = () => {
     ]
 
     return (
-        <Content>
-            <MultipleContent contents={contents} />
-        </Content>
+        <Container>
+            <Row>
+                <Col md={{ span: 4, offset: 4 }}>
+                    <MultipleContent contents={contents} />
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

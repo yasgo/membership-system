@@ -1,9 +1,11 @@
+import GhostContainer from '../components/ghost-container'
+
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { ALERT_TOGGLE, LOADING_TOGGLE } from '../redux/actions-types'
 import { auth } from '../firebase'
 
-const Register = () => {
+const Register = (props) => {
 
     const dispatch = useDispatch()
     let [mail, setMail] = useState('')
@@ -47,12 +49,13 @@ const Register = () => {
     }
 
     return (
-        <>
+        <GhostContainer {...props}>
+            {props.match && <h3>Üye Ol</h3>}
             <input type="text" placeholder="İsim" value={name} onChange={(e) => setName(e.target.value)} />
             <input type="mail" placeholder="Mail Adresi" value={mail} onChange={(e) => setMail(e.target.value)} />
             <input type="password" placeholder="Şifre" value={password} onChange={(e) => setPassword(e.target.value)} />
             <button onClick={onSend}>Üye Ol</button>
-        </>
+        </GhostContainer>
     )
 }
 

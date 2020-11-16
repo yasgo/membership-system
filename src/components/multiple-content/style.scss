@@ -1,9 +1,6 @@
 @import "../../style/colors.scss";
 
 .multiple-content-container {
-    max-width: 300px;
-    min-width: 300px;
-
     .multiple-content {
         display: flex;
         flex-direction: column;
@@ -23,6 +20,7 @@
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
         overflow: hidden;
+        margin: 0;
 
         li {
             display: flex;
