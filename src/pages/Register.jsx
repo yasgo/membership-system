@@ -1,4 +1,5 @@
 import GhostContainer from '../components/ghost-container'
+import md5 from 'md5'
 
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -15,7 +16,7 @@ const Register = (props) => {
     const onSend = () => {
         dispatch({ type: LOADING_TOGGLE, isShow: true })
 
-        auth.createUserWithEmailAndPassword(mail, password)
+        auth.createUserWithEmailAndPassword(mail, md5(password))
             .then(user => {
                 updateUserName()
 

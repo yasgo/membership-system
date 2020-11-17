@@ -1,4 +1,5 @@
 import GhostContainer from '../components/ghost-container'
+import md5 from 'md5'
 
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -13,7 +14,7 @@ const Login = (props) => {
     const onSend = () => {
         dispatch({ type: LOADING_TOGGLE, isShow: true })
 
-        auth.signInWithEmailAndPassword(mail, password)
+        auth.signInWithEmailAndPassword(mail, md5(password))
             .then(user => {
                 dispatch({ type: LOADING_TOGGLE, isShow: false })
 
