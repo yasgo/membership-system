@@ -1,15 +1,21 @@
 import { useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { auth } from '../firebase'
 import { Table } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faSave, faTimes } from '@fortawesome/free-solid-svg-icons'
 import fb from 'firebase'
 
 const Profile = () => {
-    let [imageFile, setImageFile] = useState(null)
-
     const user = useSelector(state => state.firebase).user
+
+    let [imageFile, setImageFile] = useState(null)
+    let [name, setName] = useState(user.displayName)
+    let [isNameEdit, setIsNameEdit] = useState(false)
+
+    useEffect(() => {
+        setName(user.displayName)
+    }, [user])
 
     const onUploadImage = () => {
         let metadata = { contentType: 'image/jpeg' }
@@ -46,6 +52,10 @@ const Profile = () => {
         return <img src={photoUrl} alt='Profil' />
     }
 
+    const editName = () => {
+
+    }
+
     return (
         <>
             <h3>Profil Düzenleme Sayfası</h3>
@@ -53,8 +63,41 @@ const Profile = () => {
                 <tbody>
                     <tr>
                         <td>İsim</td>
-                        <td>Yasin</td>
-                        <td><FontAwesomeIcon icon={faEdit} /></td>
+                        <td>
+                            {
+                                isNameEdit ? (
+                                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                                ) : (
+                                        user.displayName
+                                    )
+                            }
+                        </td>
+                        <td>
+                            {
+                                isNameEdit ? (
+                                    <>
+                                        <FontAwesomeIcon onClick={() => {
+                                            auth.currentUser.updateProfile({
+                                                displayName: name
+                                            }).then(function () {
+                                                console.log('Kullanıcının adı değişti!')
+                                                setIsNameEdit(false)
+                                                setName(user.displayName)
+                                            }).catch(function (error) {
+                                                console.log('error: ', error)
+                                            });
+                                        }} icon={faSave} />
+
+                                        <FontAwesomeIcon onClick={() => {
+                                            setIsNameEdit(false)
+                                            setName(user.displayName)
+                                        }} icon={faTimes} />
+                                    </>
+                                ) : (
+                                        <FontAwesomeIcon onClick={() => setIsNameEdit(true)} icon={faEdit} />
+                                    )
+                            }
+                        </td>
                     </tr>
                     <tr>
                         <td>Mail Adres</td>
