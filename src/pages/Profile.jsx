@@ -10,11 +10,16 @@ const Profile = () => {
     const user = useSelector(state => state.firebase).user
 
     let [imageFile, setImageFile] = useState(null)
+
     let [name, setName] = useState(user.displayName)
     let [isNameEdit, setIsNameEdit] = useState(false)
 
+    let [mail, setMail] = useState(user.email)
+    let [isMailEdit, setIsMailEdit] = useState(false)
+
     useEffect(() => {
         setName(user.displayName)
+        setMail(user.email)
     }, [user])
 
     const onUploadImage = () => {
@@ -50,10 +55,6 @@ const Profile = () => {
         const photoUrl = hasPhoto ? user.photoURL : 'https://via.placeholder.com/150x200';
 
         return <img src={photoUrl} alt='Profil' />
-    }
-
-    const editName = () => {
-
     }
 
     return (
@@ -100,9 +101,42 @@ const Profile = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>Mail Adres</td>
-                        <td>yasin@kalkan.com</td>
-                        <td><FontAwesomeIcon icon={faEdit} /></td>
+                        <td>Mail</td>
+                        <td>
+                            {
+                                isMailEdit ? (
+                                    <input type="text" value={mail} onChange={(e) => setMail(e.target.value)} />
+                                ) : (
+                                        user.email
+                                    )
+                            }
+                        </td>
+                        <td>
+                            {
+                                isMailEdit ? (
+                                    <>
+                                        <FontAwesomeIcon onClick={() => {
+                                            auth.updateUser({
+                                                email: mail
+                                            }).then(function () {
+                                                console.log('Kullanıcının maili değişti!')
+                                                setIsMailEdit(false)
+                                                setMail(user.email)
+                                            }).catch(function (error) {
+                                                console.log('error: ', error)
+                                            });
+                                        }} icon={faSave} />
+
+                                        <FontAwesomeIcon onClick={() => {
+                                            setIsMailEdit(false)
+                                            setMail(user.email)
+                                        }} icon={faTimes} />
+                                    </>
+                                ) : (
+                                        <FontAwesomeIcon onClick={() => setIsMailEdit(true)} icon={faEdit} />
+                                    )
+                            }
+                        </td>
                     </tr>
                     <tr>
                         <td>Photo</td>
