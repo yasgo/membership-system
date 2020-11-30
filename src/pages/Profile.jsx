@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { LOADING_TOGGLE } from '../redux/actions-types'
 import { auth } from '../firebase'
 import { Table, Row, Col } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,10 +9,10 @@ import { faEdit, faSave, faTimes } from '@fortawesome/free-solid-svg-icons'
 import fb from 'firebase'
 
 const Profile = () => {
+    const dispatch = useDispatch();
     const user = useSelector(state => state.firebase).user
 
     let [imageFile, setImageFile] = useState(null)
-
     let [name, setName] = useState(user.displayName)
     let [isNameEdit, setIsNameEdit] = useState(false)
     let [photoUrl, setPhotoUrl] = useState(user.photoURL ? user.photoURL : 'https://via.placeholder.com/150x200')
@@ -23,6 +25,8 @@ const Profile = () => {
     const onUploadImage = () => {
         let metadata = { contentType: 'image/jpeg' }
         let storageRef = fb.storage().ref(`profil-pictures/${imageFile.name}`)
+
+        dispatch({ type: LOADING_TOGGLE, isShow: true })
 
         storageRef.put(imageFile, metadata).then((snapshot) => {
             getUploadImageUrl(snapshot)
@@ -42,6 +46,7 @@ const Profile = () => {
             photoURL: photoUrl
         }).then(function () {
             setPhotoUrl(user.photoURL)
+            dispatch({ type: LOADING_TOGGLE, isShow: false })
         }).catch(function (error) {
             console.log('error: ', error)
         });
@@ -92,7 +97,7 @@ const Profile = () => {
                     </tr>
                     <tr>
                         <td>Photo</td>
-                        <td>
+                        <td colSpan={2}>
                             <Row>
                                 <Col md={12} className="mb-3">
                                     <img width="150" src={photoUrl} alt='Profil' />
@@ -105,7 +110,6 @@ const Profile = () => {
                                 </Col>
                             </Row>
                         </td>
-                        <td><FontAwesomeIcon icon={faEdit} /></td>
                     </tr>
                 </tbody>
             </Table>
