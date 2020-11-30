@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { auth } from '../firebase'
-import { Table } from 'react-bootstrap'
+import { Table, Row, Col } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faSave, faTimes } from '@fortawesome/free-solid-svg-icons'
 import fb from 'firebase'
@@ -13,13 +13,11 @@ const Profile = () => {
 
     let [name, setName] = useState(user.displayName)
     let [isNameEdit, setIsNameEdit] = useState(false)
-
-    let [mail, setMail] = useState(user.email)
-    let [isMailEdit, setIsMailEdit] = useState(false)
+    let [photoUrl, setPhotoUrl] = useState(user.photoURL ? user.photoURL : 'https://via.placeholder.com/150x200')
 
     useEffect(() => {
         setName(user.displayName)
-        setMail(user.email)
+        setPhotoUrl(user.photoURL)
     }, [user])
 
     const onUploadImage = () => {
@@ -35,7 +33,6 @@ const Profile = () => {
 
     const getUploadImageUrl = (snapshot) => {
         snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            console.log('Resim yüklendi!')
             changeUserPhoto(downloadURL)
         });
     }
@@ -44,17 +41,10 @@ const Profile = () => {
         auth.currentUser.updateProfile({
             photoURL: photoUrl
         }).then(function () {
-            console.log('Kullanıcının fotoğrafı değişti!')
+            setPhotoUrl(user.photoURL)
         }).catch(function (error) {
             console.log('error: ', error)
         });
-    }
-
-    const getPhotoContent = () => {
-        const hasPhoto = user.photoURL;
-        const photoUrl = hasPhoto ? user.photoURL : 'https://via.placeholder.com/150x200';
-
-        return <img src={photoUrl} alt='Profil' />
     }
 
     return (
@@ -101,57 +91,24 @@ const Profile = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>Mail</td>
-                        <td>
-                            {
-                                isMailEdit ? (
-                                    <input type="text" value={mail} onChange={(e) => setMail(e.target.value)} />
-                                ) : (
-                                        user.email
-                                    )
-                            }
-                        </td>
-                        <td>
-                            {
-                                isMailEdit ? (
-                                    <>
-                                        <FontAwesomeIcon onClick={() => {
-                                            auth.updateUser({
-                                                email: mail
-                                            }).then(function () {
-                                                console.log('Kullanıcının maili değişti!')
-                                                setIsMailEdit(false)
-                                                setMail(user.email)
-                                            }).catch(function (error) {
-                                                console.log('error: ', error)
-                                            });
-                                        }} icon={faSave} />
-
-                                        <FontAwesomeIcon onClick={() => {
-                                            setIsMailEdit(false)
-                                            setMail(user.email)
-                                        }} icon={faTimes} />
-                                    </>
-                                ) : (
-                                        <FontAwesomeIcon onClick={() => setIsMailEdit(true)} icon={faEdit} />
-                                    )
-                            }
-                        </td>
-                    </tr>
-                    <tr>
                         <td>Photo</td>
-                        <td>{getPhotoContent()}</td>
+                        <td>
+                            <Row>
+                                <Col md={12} className="mb-3">
+                                    <img width="150" src={photoUrl} alt='Profil' />
+                                </Col>
+                                <Col md={12} className="mb-3">
+                                    <input type="file" onChange={(e) => setImageFile(e.target.files[0])} />
+                                </Col>
+                                <Col md={12}>
+                                    <button onClick={onUploadImage}>Resmi yükle</button>
+                                </Col>
+                            </Row>
+                        </td>
                         <td><FontAwesomeIcon icon={faEdit} /></td>
                     </tr>
                 </tbody>
             </Table>
-            {
-                user.photoURL && (
-                    <img src={user.photoURL} alt="Profil" />
-                )
-            }
-            <input type="file" onChange={(e) => setImageFile(e.target.files[0])} />
-            <button onClick={onUploadImage}>Resmi yükle</button>
         </>
     )
 }
