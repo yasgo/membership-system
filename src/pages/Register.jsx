@@ -10,7 +10,7 @@ const Register = (props) => {
 
     const dispatch = useDispatch()
     let [mail, setMail] = useState('')
-    let [password, setPassword] = useState('')
+    let [password, setPassword] = useState(null)
     let [name, setName] = useState('')
 
     const onSend = () => {
